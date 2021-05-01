@@ -1,0 +1,60 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name NetworkManager
+import Foundation
+import Security
+import Swift
+public enum NetworkConfigs {
+  case `default`
+  public func setCertificatePaths(_ certificateResourcePaths: Swift.String...)
+  public func setTimeout(for request: Foundation.TimeInterval, resource: Foundation.TimeInterval)
+  public func setServerTrustedURLAuthenticationChallenge()
+  public func setLogMode(_ isOpen: Swift.Bool)
+  public static func == (a: NetworkManager.NetworkConfigs, b: NetworkManager.NetworkConfigs) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+extension Networkable {
+  public func fetch<V>(_ type: V.Type, completion: @escaping ((Swift.Result<V, Swift.Error>) -> Swift.Void)) where V : Swift.Decodable
+}
+extension Networkable {
+  public func getRequest(url: Foundation.URL, queryItems: [Swift.String : Swift.String] = [:], headers: [Swift.String : Swift.String] = [:], httpMethod: NetworkManager.RequestType = .GET) -> Foundation.URLRequest
+  public func getRequest<T>(url: Foundation.URL, encodable data: T, headers: [Swift.String : Swift.String] = [:], httpMethod: NetworkManager.RequestType = .POST) -> Foundation.URLRequest where T : Swift.Encodable
+  public func getRequest(url: Foundation.URL, formItems: [Swift.String : Swift.String] = [:], headers: [Swift.String : Swift.String] = [:], httpMethod: NetworkManager.RequestType = .POST) -> Foundation.URLRequest
+}
+public enum NetworkContentType {
+  case json
+  case urlencoded
+  public static func == (a: NetworkManager.NetworkContentType, b: NetworkManager.NetworkContentType) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum RequestType : Swift.String {
+  case GET
+  case POST
+  case PUT
+  case DELETE
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol Networkable {
+  var request: Foundation.URLRequest { get }
+}
+extension URL {
+  public init(forceString string: Swift.String)
+  public func adding(parameters: [Swift.String : Swift.String]) -> Foundation.URL
+}
+extension NetworkManager.NetworkConfigs : Swift.Equatable {}
+extension NetworkManager.NetworkConfigs : Swift.Hashable {}
+extension NetworkManager.NetworkContentType : Swift.Equatable {}
+extension NetworkManager.NetworkContentType : Swift.Hashable {}
+extension NetworkManager.RequestType : Swift.Equatable {}
+extension NetworkManager.RequestType : Swift.Hashable {}
+extension NetworkManager.RequestType : Swift.RawRepresentable {}
